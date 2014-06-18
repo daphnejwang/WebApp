@@ -1,0 +1,14 @@
+<html>
+<body>
+<h1>Project: {{project_title}}</h1>
+<table>
+{% for grade, github in grades %}
+    <tr>
+      <td>{{ github }}</td>
+      <td>{{ grade }}</td>
+    </tr>
+{% endfor %}
+</table>
+</body>
+</html>
+
