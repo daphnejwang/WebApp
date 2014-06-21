@@ -13,6 +13,7 @@ def get_student():
     student_github = request.args.get("github")
     row = hackbright_app.get_student_by_github(student_github)
     row2 = hackbright_app.show_grade(student_github)
+    print "row2 _____!!!___!!__!!__%r" % row2
     html = render_template("student_info.html", first_name=row[0], last_name=row[1], github=row[2], grade=row2[:])
     return html
 
@@ -24,6 +25,22 @@ def full_class_list():
     row = hackbright_app.query_all_grades(project)
     html = render_template("grades.html", project_title=project, grades = row)
     return html
+
+@app.route("/newstudent")
+def new_student_page():
+    # return render_template("new_student.html")
+    return render_template("new_student.html")
+
+@app.route("/confirmation")
+def create_new_student():
+    hackbright_app.connect_to_db()
+    firstname = request.args.get("first_name")
+    lastname = request.args.get("last_name")
+    github = request.args.get("github")
+    hackbright_app.make_new_student(firstname, lastname, github)
+    # html = render_template("confirmation.html", yourface=firstname, last_name = lastname, github = github)
+    # return html
+    return "YAY! Student added!"
 
 if __name__ == "__main__":
     app.run(debug=True)
